@@ -16,7 +16,7 @@ struct Onboarding: View {
                 text:"Let's Start",
                 width: 100,
                 onTap: {
-                    NavigationManager.shared.push(.login)
+                    NavigationManager.shared.push(.loginChannels)
                 },
                 isButtonEnabled: .constant(true)
             )

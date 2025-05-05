@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct BubblesBackground: View {
+    @State private var animatedBubbles = Constant.backgroundBubble
+
     var body: some View {
         ZStack {
-            ForEach(0..<Constant.backgroundBubble.count, id: \.self) { index in
-                let bubble = Constant.backgroundBubble[index]
+            ForEach(animatedBubbles) { bubble in
                 ColorBubble(bubble: bubble)
+            }
+        }
+        .onAppear {
+            startFloatingAnimation()
+        }
+    }
+
+    private func startFloatingAnimation() {
+        Timer.scheduledTimer(withTimeInterval: 1.5 , repeats: true) { _ in
+            withAnimation(.easeInOut(duration: 1.5)) {
+                animatedBubbles = animatedBubbles.map { bubble in
+                    var newBubble = bubble
+                    // Randomize a slight movement
+                    newBubble.y += CGFloat.random(in: -60...60)
+                    return newBubble
+                }
             }
         }
     }

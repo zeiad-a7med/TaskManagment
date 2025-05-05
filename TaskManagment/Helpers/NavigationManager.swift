@@ -18,9 +18,9 @@ class NavigationManager: ObservableObject {
 
     func push(_ target: RouteTypes) {
         switch target {
-        case .home:
-            popToRoot()
-            tab = 0
+//        case .home:
+//            popToRoot()
+//            tab = 0
 //        case .categories:
 //            popToRoot()
 //            tab = 1
@@ -55,12 +55,17 @@ class NavigationManager: ObservableObject {
     func manageDestination(_ target: RouteTypes) -> AnyView {
         switch target {
         //Auth
-        case .login:
-            return AnyView(LoginScreen())
-//        case .register:
-//            return AnyView(RegisterView())
-        default:
-            return AnyView(EmptyView())
+        case .home:
+            return AnyView(HomeView())
+        case .loginChannels:
+            return AnyView(LoginChannelsScreen())
+        case .loginWithEmail:
+            return AnyView(LoginWithEmailScreen())
+        case .register:
+            return AnyView(RegisterScreen())
+        
+//        default:
+//            return AnyView(EmptyView())
         }
     }
 }
@@ -69,6 +74,7 @@ enum RouteTypes: Hashable {
     //MainTabs
     case home
     //Auth
-    case login
+    case loginChannels
+    case loginWithEmail
     case register
 }

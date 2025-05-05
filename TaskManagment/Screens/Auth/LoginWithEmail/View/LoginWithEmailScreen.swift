@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct LoginScreen: View {
+struct LoginWithEmailScreen: View {
     var body: some View {
         VStack {
-            Text("Welcom Back!")
+            Text("Sign in now!")
                 .multilineTextAlignment(.center)
                 .font(.largeTitle)
                 .fontWeight(.bold)
@@ -22,8 +22,6 @@ struct LoginScreen: View {
                 .foregroundColor(.secondary)
             Spacer().frame(height: 50)
             VStack(alignment: .leading) {
-                Text("Email")
-                    .font(.title)
                 CustomTextField(
                     placeholder: "Enter your email",
                     onChange: { val in
@@ -34,10 +32,8 @@ struct LoginScreen: View {
             }
             Spacer().frame(height: 30)
             VStack(alignment: .leading) {
-                Text("Password")
-                    .font(.title)
                 CustomSecureField(
-                    placeholder: "password"
+                    placeholder: "Enter your password"
                 ) { val in
 
                 }
@@ -56,27 +52,26 @@ struct LoginScreen: View {
                     .padding(.bottom, 10)
                     .onTapGesture {
                     }
-                
+
             }
             Spacer().frame(height: 20)
             CustomButton(
                 text: "Sign in",
-                width: 100,
+                width: UIScreen.main.bounds.width * 0.6,
+                onTap: {
+                    NavigationManager.shared.push(.home)
+                },
                 isButtonEnabled: .constant(true)
             )
-            Spacer().frame(height: 20)
-            CustomButton(
-                text: "Sign in with apple",
-                systemIconName: "apple.logo",
-                width: 20,
-                isButtonEnabled: .constant(true),
-            )
+            
+            
             Text("Don't have an account? Create account")
                 .font(.footnote)
                 .foregroundColor(.blue)
                 .padding(.top, 10)
                 .padding(.bottom, 10)
                 .onTapGesture {
+                    NavigationManager.shared.push(.register)
                 }
         }.padding()
             .background(
@@ -103,5 +98,5 @@ struct CheckboxToggleStyle: ToggleStyle {
 }
 
 #Preview {
-    LoginScreen()
+    LoginWithEmailScreen()
 }
