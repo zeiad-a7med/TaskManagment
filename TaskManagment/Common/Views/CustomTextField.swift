@@ -8,7 +8,7 @@ import SwiftUI
 
 struct CustomTextField: View {
     let placeholder: String
-    var onChange: (String) -> Void
+    var onChange: (String,Bool) -> Void
     var prefix: (() -> any View)?
     var suffix: (() -> any View)?
     var enableClearButton: Bool = true
@@ -16,14 +16,12 @@ struct CustomTextField: View {
     var showClearBtnWhenClearText: Bool = false
     var validationType: ValidationType?
     var characterLimit: Int?
-    var isValid: ((Bool) -> Void)?
     @State private var defaultSet : Bool = false
     @Binding var initialText: String
     @State private var text: String = ""
     @FocusState private var isFocused: Bool
     @State private var errorMessage: String?
     var hasError: Bool { errorMessage != nil }
-    
     var onActive: ((Bool) -> Void)?
     
     
@@ -54,7 +52,6 @@ struct CustomTextField: View {
                                         text.prefix(characterLimit!))
                                 }
                             }
-                            onChange(text)
                             if validationType != nil {
                                 if text.isEmpty {
                                     errorMessage = nil
@@ -62,9 +59,8 @@ struct CustomTextField: View {
                                     errorMessage = TextValidation.validateText(
                                         text, type: validationType!)
                                 }
-                                isValid?(!hasError && !text.isEmpty)
                             }
-
+                            onChange(text,!hasError && !text.isEmpty)
                         })
 
                 // Suffix view (e.g., clear button)
@@ -142,7 +138,7 @@ struct CustomTextField: View {
 #Preview {
     CustomTextField(
         placeholder: "search in favorites.....",
-        onChange: { text in
+        onChange: { text, _ in
             print("Search text: \(text)")
         },
         //        prefix: {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegisterScreen: View {
+    @StateObject var viewModel = RegisterViewModel()
     var body: some View {
         VStack {
             Text("Sign up")
@@ -21,64 +22,92 @@ struct RegisterScreen: View {
                 .font(.headline)
                 .foregroundColor(.secondary)
             Spacer().frame(height: 50)
-            
+
             VStack(alignment: .leading) {
                 CustomTextField(
                     placeholder: "First name",
-                    onChange: { val in
-
+                    onChange: { value, valid in
+                        viewModel.updateUserInfo(
+                            registerData: viewModel.registerModel.copyWith(
+                                firstName: valid ? value : ""
+                            )
+                        )
                     },
+                    validationType: .name,
                     initialText: .constant("")
                 )
             }
             Spacer().frame(height: 20)
-            
+
             VStack(alignment: .leading) {
                 CustomTextField(
                     placeholder: "Last name",
-                    onChange: { val in
-
+                    onChange: { value, valid in
+                        viewModel.updateUserInfo(
+                            registerData: viewModel.registerModel.copyWith(
+                                lastName: valid ? value : ""
+                            )
+                        )
                     },
+                    validationType: .name,
                     initialText: .constant("")
                 )
             }
             Spacer().frame(height: 20)
-            
+
             VStack(alignment: .leading) {
                 CustomTextField(
                     placeholder: "Enter your email",
-                    onChange: { val in
-
+                    onChange: { value, valid in
+                        viewModel.updateUserInfo(
+                            registerData: viewModel.registerModel.copyWith(
+                                email: valid ? value : ""
+                            )
+                        )
                     },
-                    initialText: .constant("")
+                    validationType: .email,
+                    initialText: .constant(""),
                 )
             }
             Spacer().frame(height: 20)
             VStack(alignment: .leading) {
                 CustomSecureField(
-                    placeholder: "Enter your password"
-                ) { val in
+                    placeholder: "Enter your password",
+                    onChange: { value, valid in
+                        viewModel.updateUserInfo(
+                            registerData: viewModel.registerModel.copyWith(
+                                password: valid ? value : ""
+                            )
+                        )
 
-                }
+                    },
+                    validationType: .password,
+                )
             }
-            
+
             Spacer().frame(height: 20)
             VStack(alignment: .leading) {
                 CustomSecureField(
-                    placeholder: "Repeat password"
-                ) { val in
-
-                }
+                    placeholder: "Confirm password",
+                    onChange: { value, valid in
+                        viewModel.updateUserInfo(
+                            registerData: viewModel.registerModel.copyWith(
+                                confirmPassword: valid ? value : ""
+                            )
+                        )
+                    },
+                    validationType: .password,
+                )
             }
-            
+
             Spacer().frame(height: 40)
             CustomButton(
                 text: "Sign up",
                 width: UIScreen.main.bounds.width * 0.6,
                 onTap: {
-                    NavigationManager.shared.push(.home)
+                    viewModel.signUp()
                 },
-                isButtonEnabled: .constant(true)
+                isButtonEnabled: $viewModel.isFormEnabled
             )
         }.padding()
             .background(

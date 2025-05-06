@@ -44,7 +44,7 @@ struct CustomButton: View {
         .disabled(!isButtonEnabled)
         .padding(20)
         .background(
-            backgroundColor ?? .mainPurple
+            (backgroundColor ?? .mainPurple).opacity(isButtonEnabled ? 1 : 0.5)
         )
         .cornerRadius(20)
         .animation(.easeInOut(duration: 0.3), value: isButtonEnabled)

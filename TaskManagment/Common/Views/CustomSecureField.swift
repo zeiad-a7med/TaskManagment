@@ -11,11 +11,10 @@ struct CustomSecureField: View {
     @State private var text: String = ""
     @FocusState private var isFocused: Bool
     let placeholder: String
-    var onChange: (String) -> Void
+    var onChange: (String,Bool) -> Void
     var prefix: (() -> any View)?
     var validationType: ValidationType?
     var characterLimit: Int?
-    var isValid: ((Bool) -> Void)?
 
     @State var isVisible: Bool = false
     @State private var errorMessage: String?
@@ -49,7 +48,6 @@ struct CustomSecureField: View {
                                         )
                                     }
                                 }
-                                onChange(text)
                                 if validationType != nil {
                                     if text.isEmpty {
                                         errorMessage = nil
@@ -60,8 +58,8 @@ struct CustomSecureField: View {
                                                 type: validationType!
                                             )
                                     }
-                                    isValid?(!hasError && !text.isEmpty)
                                 }
+                                onChange(text,!hasError && !text.isEmpty)
                             }
                         )
                 } else {
@@ -77,7 +75,6 @@ struct CustomSecureField: View {
                                         )
                                     }
                                 }
-                                onChange(text)
                                 if validationType != nil {
                                     if text.isEmpty {
                                         errorMessage = nil
@@ -88,8 +85,8 @@ struct CustomSecureField: View {
                                                 type: validationType!
                                             )
                                     }
-                                    isValid?(!hasError && !text.isEmpty)
                                 }
+                                onChange(text,!hasError && !text.isEmpty)
                             }
                         )
 
@@ -143,7 +140,7 @@ struct CustomSecureField: View {
 #Preview {
     CustomSecureField(
         placeholder: "Enter your password",
-        onChange: { text in
+        onChange: { text, _ in
         },
         prefix: {
             Image(systemName: "lock")

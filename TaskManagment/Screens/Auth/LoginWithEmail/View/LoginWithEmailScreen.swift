@@ -24,7 +24,7 @@ struct LoginWithEmailScreen: View {
             VStack(alignment: .leading) {
                 CustomTextField(
                     placeholder: "Enter your email",
-                    onChange: { val in
+                    onChange: { value, valid in
 
                     },
                     initialText: .constant("")
@@ -34,7 +34,7 @@ struct LoginWithEmailScreen: View {
             VStack(alignment: .leading) {
                 CustomSecureField(
                     placeholder: "Enter your password"
-                ) { val in
+                ) { value, valid in
 
                 }
             }
@@ -63,7 +63,6 @@ struct LoginWithEmailScreen: View {
                 },
                 isButtonEnabled: .constant(true)
             )
-            
             
             Text("Don't have an account? Create account")
                 .font(.footnote)
