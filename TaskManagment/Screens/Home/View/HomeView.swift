@@ -22,7 +22,7 @@ struct HomeView: View {
                 }
                 Spacer()
             }
-            CustomTabView()
+            // tab bar
         }
         .background(
             BubblesBackground()
@@ -38,7 +38,7 @@ struct HomeView: View {
 extension HomeView {
     private var InProgressSectionView: some View {
         VStack(alignment: .leading) {
-            SectionTitle(title: "In Progress", numberOfTasks: 3)
+            SectionTitle(title: Constant.HomePageSections.middleSection.title, numberOfTasks: 3)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     InProgressCardView(
@@ -140,57 +140,11 @@ struct InProgressCardView: View {
     }
 }
 
-struct TaskTypeData {
-    let name: String
-    let logoName: String
-}
-
-// MARK: Constants
-enum TasksType: String {
-    case officeProject
-    case personalProject
-    case dailyStudy
-
-    var name: String {
-        switch self {
-        case .officeProject:
-            return "Office Project"
-        case .personalProject:
-            return "Personal Project"
-        case .dailyStudy:
-            return "Daily Study"
-        }
-    }
-
-    var imgName: String {
-        switch self {
-        case .officeProject:
-            return "handbag.fill"
-        case .personalProject:
-            return "person.circle.fill"
-        case .dailyStudy:
-            return "book.fill"
-        }
-    }
-
-    var color: Color {
-        switch self {
-        case .officeProject:
-            return .blue
-        case .personalProject:
-            return .yellow
-        case .dailyStudy:
-            return .green
-        }
-    }
-
-}
-
 // MARK: Task Group Section View
 extension HomeView {
     private var TaskGroupsSectionView: some View {
         VStack(alignment: .leading, spacing: 15) {
-            SectionTitle(title: "Task Groups", numberOfTasks: 3)
+            SectionTitle(title: Constant.HomePageSections.bottomSection.title, numberOfTasks: 3)
             TaskGroupsCardView(
                 percentage: 0.7,
                 taskType: .dailyStudy,
@@ -274,7 +228,7 @@ extension HomeView {
     }
 }
 
-// MARK: Progress Tracking View
+// MARK: Top Section - Progress Tracking View
 extension HomeView {
     private var progressTrackingView: some View {
         ZStack {
@@ -336,152 +290,5 @@ struct TaskContentView: View {
     }
 }
 
-struct CircularProgressView: View {
-    var percentage: Float
-    var taskType: TasksType?
-    var width: CGFloat?
-    var height: CGFloat?
-    var fontSize: CGFloat?
-    var strokeSize: CGFloat?
-    let mainWidth: CGFloat = 80
-    let mainHeight: CGFloat = 80
-    var body: some View {
-        ZStack {
-            Circle()
-                .fill((taskType != nil) ? .clear : .white.opacity(0.4))
-                .frame(width: width ?? mainWidth, height: mainHeight)
 
-            Circle()
-                .stroke(
-                    (taskType != nil)
-                        ? taskType?.color.opacity(0.3) ?? .white.opacity(0.3)
-                        : .white.opacity(0.3),
-                    style: StrokeStyle(
-                        lineWidth: strokeSize ?? 10,
-                        lineCap: .round
-                    )
-                )
-                .frame(
-                    width: (width ?? mainWidth) - 10,
-                    height: (height ?? mainHeight) - 10
-                )
 
-            Circle()
-                .trim(from: 0, to: CGFloat(percentage))
-                .stroke(
-                    (taskType != nil) ? taskType?.color ?? .white : .white,
-                    style: StrokeStyle(
-                        lineWidth: strokeSize ?? 10,
-                        lineCap: .round
-                    )
-                )
-                .rotationEffect(.degrees(-90))  // Start from top
-                .frame(
-                    width: (width ?? mainWidth) - 10,
-                    height: (height ?? mainHeight) - 10
-                )
-
-            Circle()
-                .frame(
-                    width: (width ?? mainWidth) - 20,
-                    height: (height ?? mainHeight) - 20
-                )
-                .foregroundColor((taskType != nil) ? .clear : .mainPurple)
-
-            Text("\(Int(percentage * 100))%")
-                .foregroundColor((taskType != nil) ? .primary : .white)
-                .font(.system(size: fontSize ?? 16, weight: .bold))
-        }
-    }
-}
-
-struct CustomMenuButton: View {
-    var onViewTaskTapped: (() -> Void)? = nil
-    var body: some View {
-        VStack {
-            RoundedRectangle(
-                cornerSize: CGSize(width: 5, height: 5),
-                style: .circular
-            )
-            .frame(width: 26, height: 26)
-            .foregroundStyle(.ultraThinMaterial)
-            .overlay {
-                HStack(spacing: 3) {
-                    ForEach(0..<3) { _ in
-                        Circle()
-                            .foregroundStyle(.white)
-                            .frame(width: 3, height: 3)
-                    }
-                }
-            }
-            .onTapGesture {
-                if let action = onViewTaskTapped {
-                    action()
-                }
-            }
-            Spacer()
-        }
-    }
-}
-
-// MARK: Custom Tab Bar
-struct CustomTabView: View {
-    let iconsNames: [String] = [
-        "house.fill",
-        "globe.americas.fill",
-        "cloud.hail.fill",
-        "plus",
-        "person.fill",
-    ]
-    var body: some View {
-        VStack {
-            Spacer()
-            ZStack {
-                UnevenRoundedRectangle(
-                    topLeadingRadius: 20,
-                    bottomLeadingRadius: 0,
-                    bottomTrailingRadius: 0,
-                    topTrailingRadius: 20,
-                    style: .circular
-                )
-                .fill(.thinMaterial)
-                .ignoresSafeArea(edges: .all)
-                .frame(height: 60)
-                HStack(spacing: 45) {
-                    ForEach(iconsNames, id: \.self) { iconName in
-                        TabIcon(imgName: iconName)
-                    }
-                }
-            }
-        }
-    }
-}
-
-struct TabIcon: View {
-    let imgName: String
-    var body: some View {
-        Image(systemName: imgName)
-            .resizable()
-            .frame(
-                width: 20,
-                height: 20
-            )
-    }
-}
-
-struct TaskTypeIcon: View {
-    var taskType: TasksType
-    var width: CGFloat?
-    var height: CGFloat?
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerSize: CGSize(width: 7, height: 7))
-                .frame(width: width ?? 25, height: height ?? 25)
-                .foregroundStyle(taskType.color.opacity(0.2))
-            Image(systemName: taskType.imgName)
-                .resizable()
-                .frame(width: (width ?? 24) / 2, height: (height ?? 24) / 2)
-                .foregroundStyle(taskType.color)
-        }
-    }
-}
