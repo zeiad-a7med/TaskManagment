@@ -8,5 +8,4 @@
 struct RegisterResponse{
     var message:String
     var success:Bool
-    //data
 }
