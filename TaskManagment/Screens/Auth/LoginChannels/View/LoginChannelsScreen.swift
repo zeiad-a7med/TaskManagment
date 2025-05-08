@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 struct LoginChannelsScreen: View {
+    @StateObject var viewModel = LoginChannelsViewModel()
     var body: some View {
         VStack {
             Text("Welcom Back!")
@@ -61,7 +63,7 @@ struct LoginChannelsScreen: View {
                 imageName: "google",
                 width: UIScreen.main.bounds.width * 0.6,
                 onTap: {
-                    
+                    viewModel.singInWithGoogle()
                 },
                 backgroundColor: .secondary.opacity(0.2),
                 fontColor: .primary,
