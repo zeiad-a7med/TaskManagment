@@ -27,13 +27,16 @@ struct BubblesBackground: View {
             return
         }
         isAnimationStarted = true
-        Timer.scheduledTimer(withTimeInterval: 1.5 , repeats: true) { _ in
-            withAnimation(.easeInOut(duration: 1.5)) {
+        Timer.scheduledTimer(withTimeInterval: 5 , repeats: true) { _ in
+            withAnimation(.easeInOut(duration: 5)) {
                 animatedBubbles = animatedBubbles.map { bubble in
                     var newBubble = bubble
+                    
+                    let screenWidth = UIScreen.main.bounds.width
+                    let screenHeight = UIScreen.main.bounds.height
                     // Randomize a slight movement
-                    newBubble.y += CGFloat.random(in: -60...60)
-                    newBubble.x += CGFloat.random(in: -60...60)
+                    newBubble.y = CGFloat.random(in: -(screenHeight/2)...(screenHeight/2))
+                    newBubble.x = CGFloat.random(in: -(screenWidth/2)...(screenWidth/2))
                     newBubble.opacity = CGFloat.random(in: 0...0.3)
                     return newBubble
                 }
