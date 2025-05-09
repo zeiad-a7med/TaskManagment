@@ -14,7 +14,7 @@ struct ColorBubble: View {
             .fill(
                 RadialGradient(
                     colors: [
-                        bubble.color.opacity(0.2),
+                        bubble.color.opacity(bubble.opacity),
                         bubble.color.opacity(0.0),
                     ],
                     center: .center,
@@ -29,6 +29,6 @@ struct ColorBubble: View {
 
 #Preview {
     ColorBubble(
-        bubble: Bubble(color: .purple, x: 0, y: 0)
+        bubble: Bubble(color: .purple, x: 0, y: 0,opacity: 0.4)
     )
 }

@@ -10,11 +10,11 @@ import SwiftUICore
 
 class Constant {
     static let backgroundBubble: [Bubble] = [
-        Bubble(color: .yellow, x: 160, y: -420),
-        Bubble(color: .green, x: -180, y: -220),
-        Bubble(color: .blue, x: 190, y: -120),
-        Bubble(color: .purple, x: -100, y: 80),
-        Bubble(color: .red, x: 30, y: 400),
+        Bubble(color: .yellow, x: 160, y: -420,opacity: 0.0),
+        Bubble(color: .green, x: -180, y: -220,opacity: 0.0),
+        Bubble(color: .blue, x: 190, y: -120,opacity: 0.0),
+        Bubble(color: .purple, x: -100, y: 80,opacity: 0.0),
+        Bubble(color: .red, x: 30, y: 400,opacity: 0.0),
     ]
 
     // MARK: Home Page Sections

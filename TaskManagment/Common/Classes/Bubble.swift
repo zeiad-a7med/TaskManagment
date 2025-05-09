@@ -10,4 +10,5 @@ struct Bubble : Identifiable{
     var color: Color
     var x: CGFloat
     var y: CGFloat
+    var opacity: CGFloat
 }
