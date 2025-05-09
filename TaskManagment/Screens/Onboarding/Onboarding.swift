@@ -20,10 +20,11 @@ struct Onboarding: View {
                 },
                 isButtonEnabled: .constant(true)
             )
-        }.background{
-            BubblesBackground()
         }
         .padding()
+        .background{
+            BubblesBackground()
+        }
 
     }
 }

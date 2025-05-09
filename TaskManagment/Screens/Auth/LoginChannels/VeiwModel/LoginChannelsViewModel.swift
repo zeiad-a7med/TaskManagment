@@ -17,4 +17,11 @@ class LoginChannelsViewModel : ObservableObject{
         }
     }
     
+    func signInWithFacebook(){
+        AuthService.signInWithFacebook { result in
+            
+        }
+    }
+    
+    
 }

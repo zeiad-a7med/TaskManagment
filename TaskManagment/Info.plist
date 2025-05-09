@@ -2,23 +2,45 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <!-- Google Config (if using) -->
     <key>GIDClientID</key>
     <string>611103988499-sib4dpgdv6m3d4e3vvl4ja4rfsrl04ge.apps.googleusercontent.com</string>
 
+    <!-- Facebook Config (MUST BE AT ROOT LEVEL) -->
+    <key>FacebookAppID</key>
+    <string>1181677730375333</string> <!-- Replace with your actual App ID -->
+    <key>FacebookClientToken</key>
+    <string>8525fd007659f31c8cf5b6cc4656e6d3</string> <!-- From Facebook Dev Dashboard → Settings → Advanced -->
+    <key>FacebookDisplayName</key>
+    <string>TaskManagment</string> <!-- Must match Facebook Dashboard -->
+
+    <!-- URL Schemes (Google + Facebook) -->
     <key>CFBundleURLTypes</key>
     <array>
+        <!-- Google -->
         <dict>
             <key>CFBundleURLSchemes</key>
             <array>
-                <!-- ✅ Only the reversed client ID part (before ".apps.googleusercontent.com") -->
                 <string>com.googleusercontent.apps.611103988499-sib4dpgdv6m3d4e3vvl4ja4rfsrl04ge</string>
+            </array>
+        </dict>
+        <!-- Facebook -->
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb1181677730375333</string> <!-- Format: "fb" + FacebookAppID -->
             </array>
         </dict>
     </array>
 
+    <!-- Query Schemes -->
     <key>LSApplicationQueriesSchemes</key>
     <array>
-        <string>google</string>
+        <string>google</string> <!-- For Google -->
+        <string>fbapi</string> <!-- For Facebook -->
+        <string>fb-messenger-share-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
     </array>
 </dict>
 </plist>
