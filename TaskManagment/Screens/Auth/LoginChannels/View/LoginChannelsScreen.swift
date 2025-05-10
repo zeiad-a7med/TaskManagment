@@ -54,7 +54,7 @@ struct LoginChannelsScreen: View {
                     systemIconName: "apple.logo",
                     width: UIScreen.main.bounds.width * 0.6,
                     onTap: {
-                        
+                        viewModel.signInWithApple()
                     },
                     backgroundColor: .secondary.opacity(0.2),
                     fontColor: .primary,

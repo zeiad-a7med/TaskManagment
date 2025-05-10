@@ -23,5 +23,11 @@ class LoginChannelsViewModel : ObservableObject{
         }
     }
     
+    func signInWithApple(){
+        AuthService.signInWithApple { result in
+            
+        }
+    }
+    
     
 }

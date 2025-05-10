@@ -19,7 +19,10 @@ protocol AuthServiceProtocol {
         completion: @escaping (GoogleResponse) -> Void
     )
     static func signInWithFacebook(
-        completion: @escaping (GoogleResponse) -> Void
+        completion: @escaping (FacebookResponse) -> Void
+    )
+    static func signInWithApple(
+        completion: @escaping (AppleResponse) -> Void
     )
 }
 
@@ -50,7 +53,7 @@ class AuthService: AuthServiceProtocol {
                 userID: user.userID,
                 name: user.profile?.name,
                 email: user.profile?.email,
-                imageURL: user.profile?.imageURL(withDimension: 100)?.absoluteString ?? "",
+                imageURL: user.profile?.imageURL(withDimension: 200)?.absoluteString ?? "",
                 idToken: user.idToken?.tokenString,
                 refreshToken: user.refreshToken.tokenString,
                 accessToken: user.accessToken.tokenString
@@ -59,7 +62,7 @@ class AuthService: AuthServiceProtocol {
         }
     }
     
-    static func signInWithFacebook(completion: @escaping (GoogleResponse) -> Void) {
+    static func signInWithFacebook(completion: @escaping (FacebookResponse) -> Void) {
         let loginManager = LoginManager()
                 loginManager.logIn(permissions: ["public_profile", "email"], from: nil) { result, error in
                     if let error = error {
@@ -79,7 +82,7 @@ class AuthService: AuthServiceProtocol {
                     let request = GraphRequest(
                         graphPath: "me",
                         parameters: ["fields": "id, name, email"],
-                        tokenString: AccessToken.current?.tokenString,
+                        tokenString: result.authenticationToken?.tokenString,
                         version: nil,
                         httpMethod: .get
                     )
@@ -97,9 +100,8 @@ class AuthService: AuthServiceProtocol {
                     }
                 }
     }
-    
-    private func fetchFacebookUserData() {
-            
-        }
+    static func signInWithApple(completion: @escaping (AppleResponse) -> Void) {
+        
+    }
 
 }
