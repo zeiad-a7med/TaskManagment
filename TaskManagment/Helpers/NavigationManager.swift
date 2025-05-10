@@ -12,25 +12,32 @@ import SwiftUI
 class NavigationManager: ObservableObject {
     static let shared = NavigationManager()  // Singleton instance
     @Published var path = NavigationPath()
-    @Published var tab = 0
+    @Published var tab = TabBarItem.home.tag
 
     private init() {}  // Private initializer to enforce singleton pattern
 
     func push(_ target: RouteTypes) {
         switch target {
-//        case .home:
-//            popToRoot()
-//            tab = 0
-//        case .categories:
-//            popToRoot()
-//            tab = 1
-//        case .orders:
-//            popToRoot()
-//            tab = 2
-//        case .settings:
-//            popToRoot()
-//            tab = 3
-        
+        case .home:
+            popToRoot()
+            tab = TabBarItem.home.tag
+        case .tasks:
+            popToRoot()
+            tab = TabBarItem.calender.tag
+        case .addProject:
+            popToRoot()
+            tab = TabBarItem.plus.tag
+        case .todo:
+            popToRoot()
+            tab = TabBarItem.toDoList.tag
+        case .profile:
+            popToRoot()
+            tab = TabBarItem.profile.tag
+            
+        case .loginChannels:
+            path.append(target)
+        case .loginWithEmail:
+            path.append(target)
 
         default:
             path.append(target)
@@ -57,6 +64,14 @@ class NavigationManager: ObservableObject {
         //Auth
         case .home:
             return AnyView(HomeView())
+        case .tasks:
+            return AnyView(EmptyView())
+        case .addProject:
+            return AnyView(EmptyView())
+        case .todo:
+            return AnyView(EmptyView())
+        case .profile:
+            return AnyView(EmptyView())
         case .loginChannels:
             return AnyView(LoginChannelsScreen())
         case .loginWithEmail:
@@ -66,6 +81,7 @@ class NavigationManager: ObservableObject {
         
 //        default:
 //            return AnyView(EmptyView())
+        
         }
     }
 }
@@ -73,6 +89,10 @@ class NavigationManager: ObservableObject {
 enum RouteTypes: Hashable {
     //MainTabs
     case home
+    case tasks
+    case addProject
+    case todo
+    case profile
     //Auth
     case loginChannels
     case loginWithEmail

@@ -11,17 +11,14 @@ struct AppTabBarView: View {
     @State private var tabSelection:TabBarItem = .home
     var body: some View {
         CustomTabBarContainerView(selection: $tabSelection) {
-            Color.blue
+            HomeView()
                 .tag(TabBarItem.home.tag)
                 .tabBarItem(tab: .home, selection: $tabSelection)
+            
             
             Color.yellow
                 .tag(TabBarItem.calender.tag)
                 .tabBarItem(tab: .calender, selection: $tabSelection)
-            
-            Color.orange
-                .tag(TabBarItem.plus.tag)
-                .tabBarItem(tab: .plus, selection: $tabSelection)
             
             Color.red
                 .tag(TabBarItem.toDoList.tag)

@@ -15,7 +15,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
-            Onboarding()
+            AppTabBarView()
                 .navigationDestination(for: RouteTypes.self) { target in
                     NavigationManager.shared.manageDestination(target)
                 }
