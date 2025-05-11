@@ -50,18 +50,6 @@ struct LoginChannelsScreen: View {
                 }
                 Spacer().frame(height: 20)
                 CustomButton(
-                    text: "Sign in with apple",
-                    systemIconName: "apple.logo",
-                    width: UIScreen.main.bounds.width * 0.6,
-                    onTap: {
-                        viewModel.signInWithApple()
-                    },
-                    backgroundColor: .secondary.opacity(0.2),
-                    fontColor: .primary,
-                    isButtonEnabled: .constant(true),
-                    
-                )
-                CustomButton(
                     text: "Sign in with google",
                     imageName: "google",
                     width: UIScreen.main.bounds.width * 0.6,
@@ -73,11 +61,6 @@ struct LoginChannelsScreen: View {
                     isButtonEnabled: .constant(true),
                     
                 )
-                FacebookSignInButton()
-                    .frame(height: 50)
-                    .cornerRadius(20)
-                    .padding(.vertical)
-                    .padding(.horizontal,30)
                     
                 CustomButton(
                     text: "Sign in with facebook",
@@ -91,6 +74,8 @@ struct LoginChannelsScreen: View {
                     isButtonEnabled: .constant(true),
                     
                 )
+                AppleSignInButton{
+                }
             }.padding()
         }.background(
             BubblesBackground()
