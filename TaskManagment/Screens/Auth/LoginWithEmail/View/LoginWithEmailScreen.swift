@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginWithEmailScreen: View {
+    @StateObject var viewModel = LoginViewModel()
     var body: some View {
         ScrollView {
             Spacer().frame(height: UIScreen.main.bounds.height * 0.1)
@@ -27,7 +28,11 @@ struct LoginWithEmailScreen: View {
                     CustomTextField(
                         placeholder: "Enter your email",
                         onChange: { value, valid in
-                            
+                            viewModel.updateUserInfo(
+                                signInData: viewModel.signInData.copyWith(
+                                    email: valid ? value : ""
+                                )
+                            )
                         },
                         initialText: .constant("")
                     )
@@ -37,7 +42,11 @@ struct LoginWithEmailScreen: View {
                     CustomSecureField(
                         placeholder: "Enter your password"
                     ) { value, valid in
-                        
+                        viewModel.updateUserInfo(
+                            signInData: viewModel.signInData.copyWith(
+                                password: valid ? value : ""
+                            )
+                        )
                     }
                 }
                 Spacer().frame(height: 20)
@@ -53,17 +62,17 @@ struct LoginWithEmailScreen: View {
                         .padding(.top, 10)
                         .padding(.bottom, 10)
                         .onTapGesture {
+                            
                         }
-                    
                 }
                 Spacer().frame(height: 20)
                 CustomButton(
                     text: "Sign in",
                     width: UIScreen.main.bounds.width * 0.6,
                     onTap: {
-                        NavigationManager.shared.push(.home)
+                        viewModel.signIn()
                     },
-                    isButtonEnabled: .constant(true)
+                    isButtonEnabled: $viewModel.isFormEnabled
                 )
                 
                 Text("Don't have an account? Create account")

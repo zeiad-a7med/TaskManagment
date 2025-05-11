@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import FBSDKCoreKit
+import FirebaseCore
 
 @main
 struct TaskManagmentApp: App {
@@ -38,6 +39,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         Settings.shared.appID = "1181677730375333" // Debug
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        FirebaseApp.configure()
         return true
     }
 

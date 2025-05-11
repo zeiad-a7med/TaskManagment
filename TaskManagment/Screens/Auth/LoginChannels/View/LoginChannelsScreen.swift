@@ -50,18 +50,6 @@ struct LoginChannelsScreen: View {
                 }
                 Spacer().frame(height: 20)
                 CustomButton(
-                    text: "Sign in with apple",
-                    systemIconName: "apple.logo",
-                    width: UIScreen.main.bounds.width * 0.6,
-                    onTap: {
-                        viewModel.signInWithApple()
-                    },
-                    backgroundColor: .secondary.opacity(0.2),
-                    fontColor: .primary,
-                    isButtonEnabled: .constant(true),
-                    
-                )
-                CustomButton(
                     text: "Sign in with google",
                     imageName: "google",
                     width: UIScreen.main.bounds.width * 0.6,
@@ -73,6 +61,7 @@ struct LoginChannelsScreen: View {
                     isButtonEnabled: .constant(true),
                     
                 )
+                    
                 CustomButton(
                     text: "Sign in with facebook",
                     imageName: "facebook",
@@ -85,6 +74,8 @@ struct LoginChannelsScreen: View {
                     isButtonEnabled: .constant(true),
                     
                 )
+                AppleSignInButton{
+                }
             }.padding()
         }.background(
             BubblesBackground()
@@ -100,23 +91,20 @@ struct FacebookSignInButton: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator()
     }
-
     func makeUIView(context: Context) -> FBLoginButton {
         let button = FBLoginButton()
         button.permissions = ["public_profile", "email"]
         button.delegate = context.coordinator
         return button
     }
-
-    func updateUIView(_ uiView: FBLoginButton, context: Context) {}
-
+    func updateUIView(_ uiView: FBLoginButton, context: Context) {
+    }
     class Coordinator: NSObject, LoginButtonDelegate {
         func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
             if let error = error {
                 print("Facebook login failed: \(error.localizedDescription)")
                 return
             }
-
             if let token = result?.token {
                 print("Facebook login success. Token: \(token.tokenString)")
                 // Optionally: fetch user info
